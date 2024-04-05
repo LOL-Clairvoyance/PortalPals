@@ -2,6 +2,7 @@ package game
 
 import "core:fmt"
 import "vendor:raylib"
+import "core:strings"
 
 Player :: struct {
     Position: raylib.Vector2,
@@ -46,6 +47,24 @@ player_attack :: proc (player : ^Player)
             }
         }
     }
+}
+
+player_draw_health :: proc (player : ^Player)
+{
+    for i := 1; i < player.Health + 1; i += 1 {
+        raylib.DrawCircleV({20 * f32(i), 20}, 10, raylib.RED)
+    }
+}
+
+player_draw_quest :: proc (player : ^Player)
+{
+    quest := fmt.aprintf("Find and Clear %i portals!", 5 - player.Portal_Cleared);
+    raylib.DrawText(strings.unsafe_string_to_cstring(quest), 10, SCREEN_HEIGHT - 50, 20, raylib.DARKGRAY);
+}
+
+player_draw :: proc (player : ^Player)
+{
+    raylib.DrawCircleV(player.Position, 20, raylib.BLUE);
 }
 
 player_update :: proc (player : ^Player)

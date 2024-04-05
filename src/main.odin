@@ -13,14 +13,15 @@ main :: proc() {
     raylib.SetTargetFPS(60)
     player: Player
     player.Position = raylib.Vector2 { SCREEN_WIDTH / 2, SCREEN_HEIGHT /2 }
-    player
+    player.Health = 3;
+    player.Portal_Cleared = 0;
 
     for !raylib.WindowShouldClose() {
         raylib.BeginDrawing()
         raylib.ClearBackground(raylib.RAYWHITE);  
-        raylib.DrawCircleV(player.Position, 20, raylib.RED)
-        quest := fmt.aprintf("Find and Clear %i portals!", 5 - Portal_Cleared);
-        raylib.DrawText(strings.unsafe_string_to_cstring(quest), 10, 10, 20, raylib.DARKGRAY);
+        player_draw(&player);
+        player_draw_quest(&player);
+        player_draw_health(&player);
         player_update(&player);
         raylib.EndDrawing()
     }
