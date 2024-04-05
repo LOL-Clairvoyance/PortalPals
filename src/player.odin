@@ -4,7 +4,9 @@ import "core:fmt"
 import "vendor:raylib"
 
 Player :: struct {
-    Position: raylib.Vector2
+    Position: raylib.Vector2,
+    Health: int,
+    Portal_Cleared: int
 }
 
 player_move :: proc (player : ^Player) 
@@ -44,4 +46,10 @@ player_attack :: proc (player : ^Player)
             }
         }
     }
+}
+
+player_update :: proc (player : ^Player)
+{
+    player_move(player);
+    player_attack(player);
 }
